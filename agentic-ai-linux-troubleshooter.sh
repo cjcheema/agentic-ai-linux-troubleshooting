@@ -189,7 +189,7 @@ ask_ollama() {
     local response
 
     response=$(curl -sS \
-        --fail-with-body \
+        #--fail-with-body \
         --connect-timeout 10 \
         --max-time 180 \
         "$OLLAMA_URL" \
@@ -202,6 +202,16 @@ ask_ollama() {
     if [[ $rc -ne 0 ]]; then
         echo
         echo "ERROR: Ollama API request failed."
+        echo "$response"
+        return 1
+    fi
+
+    http_code=$(tail -n 1 <<< "$response")
+    response=$(sed '$d' <<< "$response")
+
+    if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+        echo
+        echo "ERROR: Ollama API returned HTTP $http_code"
         echo "$response"
         return 1
     fi
