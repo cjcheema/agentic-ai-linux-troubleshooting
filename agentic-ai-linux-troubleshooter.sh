@@ -122,7 +122,9 @@ validate_command() {
         "ss -tulpn")
             return 0
             ;;
-
+        "du -sh /*")
+            return 0
+            ;;
         "du -sh /var/*")
             return 0
             ;;
@@ -162,14 +164,7 @@ execute_command() {
 
         return 1
     fi
-    # if validate_command "$cmd"; then
-
-    #     echo "Command rejected by security policy:"
-    #     echo "$cmd"
-
-    #     return 1
-    # fi
-
+    
     echo
     echo "----------------------------------------"
     echo "Running: $cmd"
@@ -196,15 +191,6 @@ ask_ollama() {
     local response
     local http_code
 
-    
-    # response=$(curl -sS \
-    #     #--fail-with-body \
-    #     --connect-timeout 10 \
-    #     --max-time 180 \
-    #     "$OLLAMA_URL" \
-    #     -H "Authorization: Bearer $OLLAMA_API_KEY" \
-    #     -H "Content-Type: application/json" \
-    #     -d "$payload")
     
     response=$(curl -sS \
         --connect-timeout 10 \
