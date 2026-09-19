@@ -155,20 +155,20 @@ execute_command() {
 
     local cmd="$1"
 
-    # if ! validate_command "$cmd"; then
-
-    #     echo "Command rejected by security policy:"
-    #     echo "$cmd"
-
-    #     return 1
-    # fi
-    if validate_command "$cmd"; then
+    if ! validate_command "$cmd"; then
 
         echo "Command rejected by security policy:"
         echo "$cmd"
 
         return 1
     fi
+    # if validate_command "$cmd"; then
+
+    #     echo "Command rejected by security policy:"
+    #     echo "$cmd"
+
+    #     return 1
+    # fi
 
     echo
     echo "----------------------------------------"
@@ -355,16 +355,7 @@ while true; do
             # Validate command
             ###################################################################
 
-            # if ! validate_command "$COMMAND"; then
-
-            #     echo
-            #     echo "SECURITY: Command rejected."
-            #     echo "Only approved read-only commands are allowed."
-
-            #     TOOL_RESULT="Command rejected by local security policy."
-
-            # else
-             if validate_command "$COMMAND"; then
+            if ! validate_command "$COMMAND"; then
 
                 echo
                 echo "SECURITY: Command rejected."
@@ -373,6 +364,15 @@ while true; do
                 TOOL_RESULT="Command rejected by local security policy."
 
             else
+            #  if validate_command "$COMMAND"; then
+
+            #     echo
+            #     echo "SECURITY: Command rejected."
+            #     echo "Only approved read-only commands are allowed."
+
+            #     TOOL_RESULT="Command rejected by local security policy."
+
+            # else
 
                 #################################################################
                 # Execute command
