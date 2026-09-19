@@ -187,15 +187,27 @@ ask_ollama() {
 
     local payload="$1"
     local response
+    local http_code
 
+    
+    # response=$(curl -sS \
+    #     #--fail-with-body \
+    #     --connect-timeout 10 \
+    #     --max-time 180 \
+    #     "$OLLAMA_URL" \
+    #     -H "Authorization: Bearer $OLLAMA_API_KEY" \
+    #     -H "Content-Type: application/json" \
+    #     -d "$payload")
+    
     response=$(curl -sS \
-        #--fail-with-body \
         --connect-timeout 10 \
         --max-time 180 \
+        -w "\n%{http_code}" \
         "$OLLAMA_URL" \
         -H "Authorization: Bearer $OLLAMA_API_KEY" \
         -H "Content-Type: application/json" \
         -d "$payload")
+
 
     local rc=$?
 
