@@ -350,16 +350,7 @@ while true; do
                 TOOL_RESULT="Command rejected by local security policy."
 
             else
-            #  if validate_command "$COMMAND"; then
-
-            #     echo
-            #     echo "SECURITY: Command rejected."
-            #     echo "Only approved read-only commands are allowed."
-
-            #     TOOL_RESULT="Command rejected by local security policy."
-
-            # else
-
+           
                 #################################################################
                 # Execute command
                 #################################################################
